@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package foos;
+
+import "google/protobuf/empty.proto";
+
+// https://cloud.google.com/apis/design/naming_convention#method_names
+
+message Foo {
+  string id = 1;
+  string name = 2;
+}
+
+message GetFooRequest {
+  string id = 1;
+}
+
+message ListFoosResponse {
+  repeated Foo foos = 1;
+}
+
+service Foos {
+  rpc CreateFoos(stream Foo) returns (google.protobuf.Empty) {};
+  rpc GetFoo (GetFooRequest) returns (Foo) {};
+  rpc ListFoos (google.protobuf.Empty) returns (ListFoosResponse);
+}
